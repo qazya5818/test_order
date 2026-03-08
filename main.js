@@ -2,14 +2,13 @@
 const menuItems = [
   // 커피
   { id: 1,  name: '아메리카노',      desc: '진한 에스프레소와 물의 조화',         priceHot: 1800, priceIce: 1800, emoji: '\u2615', image: 'images/menu_americano.png', category: 'coffee', hasCoffee: true },
-  { id: 3,  name: '카페라떼',        desc: '부드러운 우유와 에스프레소',          priceHot: 3000, priceIce: 3200, emoji: '\ud83e\udd5b', category: 'coffee', hasCoffee: true, hasMilk: true },
-  { id: 2,  name: '카페모카',        desc: '초콜릿과 에스프레소의 달콤한 만남',   priceHot: 3500, priceIce: 3700, emoji: '\ud83c\udf6b', category: 'coffee', hasCoffee: true, hasMilk: true },
-  { id: 4,  name: '바닐라라떼',      desc: '달콤한 바닐라 시럽 라떼',             priceHot: 3500, priceIce: 3700, emoji: '\ud83c\udf6e', category: 'coffee', hasCoffee: true, hasMilk: true },
-  { id: 5,  name: '카라멜 마끼야또',  desc: '카라멜 드리즐의 달콤함',              priceHot: 3500, priceIce: 3700, emoji: '\ud83c\udf6f', category: 'coffee', hasCoffee: true, hasMilk: true },
-  { id: 51, name: '디카페인 아메리카노', desc: '카페인 부담 없는 아메리카노',       priceHot: 3000, priceIce: 3000, emoji: '\u2615',       category: 'coffee', hasCoffee: true },
-  { id: 6,  name: '카푸치노',        desc: '에스프레소와 우유 거품의 클래식',     priceHot: 3000, priceIce: 3200, emoji: '\ud83c\udf75', category: 'coffee', hasCoffee: true, hasMilk: true },
-  { id: 7,  name: '연유라떼',        desc: '달콤한 연유와 에스프레소의 조화',     priceHot: 3800, priceIce: 4000, emoji: '\ud83e\udd5b', category: 'coffee', hasCoffee: true, hasMilk: true },
-  { id: 8,  name: '소이라떼',        desc: '고소한 두유 라떼',                   priceHot: 3500, priceIce: 3700, emoji: '\ud83c\udf31', category: 'coffee', hasCoffee: true, hasMilk: true },
+  { id: 3,  name: '카페라떼',        desc: '부드러운 우유와 에스프레소',          priceHot: 3000, priceIce: 3200, emoji: '\ud83e\udd5b', image: 'images/menu_cafelatte.png', category: 'coffee', hasCoffee: true, hasMilk: true },
+  { id: 2,  name: '카페모카',        desc: '초콜릿과 에스프레소의 달콤한 만남',   priceHot: 3500, priceIce: 3700, emoji: '\ud83c\udf6b', image: 'images/menu_cafemoca.png', category: 'coffee', hasCoffee: true, hasMilk: true },
+  { id: 4,  name: '바닐라라떼',      desc: '달콤한 바닐라 시럽 라떼',             priceHot: 3500, priceIce: 3700, emoji: '\ud83c\udf6e', image: 'images/menu_Vanillalatte.png', category: 'coffee', hasCoffee: true, hasMilk: true },
+  { id: 5,  name: '카라멜 마끼야또',  desc: '카라멜 드리즐의 달콤함',              priceHot: 3500, priceIce: 3700, emoji: '\ud83c\udf6f', image: 'images/menu_Caramelmacchiato.png', category: 'coffee', hasCoffee: true, hasMilk: true },
+  { id: 6,  name: '카푸치노',        desc: '에스프레소와 우유 거품의 클래식',     priceHot: 3000, priceIce: 3200, emoji: '\ud83c\udf75', image: 'images/menu_cappuccino.png', category: 'coffee', hasCoffee: true, hasMilk: true },
+  { id: 7,  name: '연유라떼',        desc: '달콤한 연유와 에스프레소의 조화',     priceHot: 3800, priceIce: 4000, emoji: '\ud83e\udd5b', image: 'images/menu_milklatte.png', category: 'coffee', hasCoffee: true, hasMilk: true },
+  { id: 8,  name: '소이라떼',        desc: '고소한 두유 라떼',                   priceHot: 3500, priceIce: 3700, emoji: '\ud83c\udf31', image: 'images/menu_soilatte.png', category: 'coffee', hasCoffee: true, hasMilk: true },
   // 라떼&프라푸치노
   { id: 9,  name: '밀크티',            desc: '진한 홍차와 부드러운 우유',           priceHot: 3800, priceIce: 4000, emoji: '\ud83c\udf75', category: 'latte', hasMilk: true },
   { id: 10, name: '시나몬라떼',        desc: '따뜻한 시나몬 향의 라떼',             priceHot: 3800, priceIce: 4000, emoji: '\ud83e\uded6', category: 'latte', hasMilk: true },
@@ -453,7 +452,7 @@ function optionSummary(options, hasCoffee, hasMilk) {
   parts.push(options.temp);
   if (options.sizeUp) parts.push('Size Up (+1.0)');
   if (hasCoffee && options.addShot) parts.push('샷 추가 (+0.5)');
-  const strengthMap = { light: '연하게', normal: '보통', strong: '진하게' };
+  const strengthMap = { light: '연하게', normal: '보통' };
   parts.push(strengthMap[options.strength]);
   if (hasCoffee && options.decaf) parts.push('디카페인 (+0.5)');
   if (hasMilk && options.soyMilk) parts.push('두유 변경 (+0.5)');
