@@ -124,7 +124,7 @@ function getItemPrice(item, options) {
   if (options.sizeUp) p += 1000;
   if (options.addShot) p += 500;
   if (options.soyMilk) p += 500;
-  if (options.decaf) p += 500;
+  if (options.decaf) p += 1000;
   return p;
 }
 
