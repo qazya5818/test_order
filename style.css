@@ -509,6 +509,18 @@ body {
   flex-wrap: wrap;
 }
 
+.opt-row-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.opt-row-grid .opt-btn {
+  width: 100%;
+  padding: 12px 8px; /* Increased padding for better touch area */
+  text-align: center;
+}
+
 .opt-btn {
   padding: 5px 12px;
   border-radius: 999px;

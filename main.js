@@ -286,6 +286,19 @@ optConfirmBtn.addEventListener('click', () => {
   }
 
   updateCartUI();
+  
+  // Reset modal state and UI before closing
+  modalState = {
+    qty: 1,
+    temp: 'ICED',
+    sizeUp: false,
+    addShot: false,
+    soyMilk: false,
+    decaf: false,
+    strength: 'normal'
+  };
+  updateOptionModalUI();
+  
   closeOptionModal();
 });
 
