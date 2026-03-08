@@ -360,7 +360,6 @@ function renderCartSheet() {
         <div class="option-row">
           <button class="opt-btn ${o.strength === 'light' ? 'active' : ''}" data-idx="${idx}" data-key="strength" data-val="light">연하게</button>
           <button class="opt-btn ${o.strength === 'normal' ? 'active' : ''}" data-idx="${idx}" data-key="strength" data-val="normal">보통</button>
-          <button class="opt-btn ${o.strength === 'strong' ? 'active' : ''}" data-idx="${idx}" data-key="strength" data-val="strong">진하게</button>
         </div>
         ${item.hasCoffee ? `
         <div class="option-row decaf-row">
