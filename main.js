@@ -90,17 +90,42 @@ const sheetOrderer   = document.getElementById('sheetOrderer');
 const modalMsg       = document.getElementById('modalMsg');
 const modalCloseBtn  = document.getElementById('modalCloseBtn');
 
-// Default options per item
-function defaultOptions() {
-  return { temp: 'ICED', sizeUp: false, strength: 'normal', decaf: false, addShot: false, soyMilk: false };
-}
+// Option Modal Elements
+const optionModalOverlay = document.getElementById('optionModalOverlay');
+const optClose           = document.getElementById('optClose');
+const optEmoji           = document.getElementById('optEmoji');
+const optName            = document.getElementById('optName');
+const optDesc            = document.getElementById('optDesc');
+const optQty             = document.getElementById('optQty');
+const optMinus           = document.getElementById('optMinus');
+const optPlus            = document.getElementById('optPlus');
+const optTempRow         = document.getElementById('optTempRow');
+const optSizeUp          = document.getElementById('optSizeUp');
+const optAddShot         = document.getElementById('optAddShot');
+const optSoyMilk         = document.getElementById('optSoyMilk');
+const optDecaf           = document.getElementById('optDecaf');
+const optStrengthRow     = document.getElementById('optStrengthRow');
+const optTotalPrice      = document.getElementById('optTotalPrice');
+const optConfirmBtn      = document.getElementById('optConfirmBtn');
+
+// Modal State
+let activeItem = null;
+let modalState = {
+  qty: 1,
+  temp: 'ICED',
+  sizeUp: false,
+  addShot: false,
+  soyMilk: false,
+  decaf: false,
+  strength: 'normal'
+};
 
 function getItemPrice(item, options) {
   let p = options.temp === 'HOT' ? item.priceHot : item.priceIce;
   if (options.sizeUp) p += 1000;
   if (options.addShot) p += 500;
   if (options.soyMilk) p += 500;
-  if (options.decaf) p += 1000;
+  if (options.decaf) p += 500;
   return p;
 }
 
@@ -124,7 +149,7 @@ function renderMenu() {
 
   menuGrid.querySelectorAll('.add-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      addToCart(parseInt(btn.dataset.id));
+      openOptionModal(parseInt(btn.dataset.id));
       animateBtn(btn);
     });
   });
@@ -136,53 +161,135 @@ function animateBtn(btn) {
   btn.classList.add('pop');
 }
 
-// Cart Logic
-function addToCart(id) {
+// Option Modal Logic
+function openOptionModal(id) {
   const item = menuItems.find(m => m.id === id);
-  const existing = cart.find(c => c.id === id);
+  activeItem = item;
+  modalState = {
+    qty: 1,
+    temp: 'ICED',
+    sizeUp: false,
+    addShot: false,
+    soyMilk: false,
+    decaf: false,
+    strength: 'normal'
+  };
+
+  optEmoji.textContent = item.emoji;
+  optName.textContent = item.name;
+  optDesc.textContent = item.desc;
+  
+  // Toggle visibility of specific options
+  optAddShot.style.display = item.hasCoffee ? 'block' : 'none';
+  optSoyMilk.style.display = item.hasMilk ? 'block' : 'none';
+  optDecaf.style.display   = item.hasCoffee ? 'block' : 'none';
+
+  updateOptionModalUI();
+  optionModalOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeOptionModal() {
+  optionModalOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function updateOptionModalUI() {
+  optQty.textContent = modalState.qty;
+  
+  optTempRow.querySelectorAll('.opt-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.val === modalState.temp);
+  });
+
+  optStrengthRow.querySelectorAll('.opt-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.val === modalState.strength);
+  });
+
+  optSizeUp.classList.toggle('active', modalState.sizeUp);
+  optAddShot.classList.toggle('active', modalState.addShot);
+  optSoyMilk.classList.toggle('active', modalState.soyMilk);
+  optDecaf.classList.toggle('active', modalState.decaf);
+
+  const price = getItemPrice(activeItem, modalState);
+  optTotalPrice.textContent = (price * modalState.qty).toLocaleString() + '원';
+}
+
+optMinus.addEventListener('click', () => {
+  if (modalState.qty > 1) {
+    modalState.qty--;
+    updateOptionModalUI();
+  }
+});
+
+optPlus.addEventListener('click', () => {
+  modalState.qty++;
+  updateOptionModalUI();
+});
+
+optTempRow.querySelectorAll('.opt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    modalState.temp = btn.dataset.val;
+    updateOptionModalUI();
+  });
+});
+
+optStrengthRow.querySelectorAll('.opt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    modalState.strength = btn.dataset.val;
+    updateOptionModalUI();
+  });
+});
+
+optSizeUp.addEventListener('click', () => {
+  modalState.sizeUp = !modalState.sizeUp;
+  updateOptionModalUI();
+});
+
+optAddShot.addEventListener('click', () => {
+  modalState.addShot = !modalState.addShot;
+  updateOptionModalUI();
+});
+
+optSoyMilk.addEventListener('click', () => {
+  modalState.soyMilk = !modalState.soyMilk;
+  updateOptionModalUI();
+});
+
+optDecaf.addEventListener('click', () => {
+  modalState.decaf = !modalState.decaf;
+  updateOptionModalUI();
+});
+
+optConfirmBtn.addEventListener('click', () => {
+  const cartItem = {
+    ...activeItem,
+    qty: modalState.qty,
+    options: { ...modalState }
+  };
+  
+  const existing = cart.find(c => 
+    c.id === cartItem.id && 
+    JSON.stringify(c.options) === JSON.stringify(cartItem.options)
+  );
+
   if (existing) {
-    existing.qty += 1;
+    existing.qty += cartItem.qty;
   } else {
-    cart.push({ ...item, qty: 1, options: defaultOptions() });
+    cart.push(cartItem);
   }
+
   updateCartUI();
-}
+  closeOptionModal();
+});
 
-function updateQty(id, delta) {
-  const existing = cart.find(c => c.id === id);
-  if (!existing) return;
-  existing.qty += delta;
-  if (existing.qty <= 0) cart = cart.filter(c => c.id !== id);
-  updateCartUI();
-  renderCartSheet();
-}
+optClose.addEventListener('click', closeOptionModal);
+optionModalOverlay.addEventListener('click', (e) => {
+  if (e.target === optionModalOverlay) closeOptionModal();
+});
 
-function updateOption(id, key, val) {
-  const item = cart.find(c => c.id === id);
-  if (!item) return;
-  if (key === 'sizeUp' || key === 'addShot' || key === 'soyMilk') {
-    item.options[key] = !item.options[key];
-  } else if (key === 'decaf') {
-    item.options.decaf = val;
-  } else {
-    item.options[key] = val;
-  }
-  const scrollTop = cartItems.scrollTop;
-  renderCartSheet();
-  updateCartUI();
-  requestAnimationFrame(() => { cartItems.scrollTop = scrollTop; });
-}
-
-function getTotal() {
-  return cart.reduce((sum, c) => sum + getItemPrice(c, c.options) * c.qty, 0);
-}
-
-function getTotalQty() {
-  return cart.reduce((sum, c) => sum + c.qty, 0);
-}
-
+// Cart Logic
 function updateCartUI() {
-  const qty = getTotalQty();
+  const qty = cart.reduce((sum, c) => sum + c.qty, 0);
   cartBadge.textContent = qty;
   if (qty > 0) {
     fabCart.classList.add('visible');
@@ -192,8 +299,8 @@ function updateCartUI() {
   }
 }
 
-function optBtn(id, label, cssClass, key, val, isActive) {
-  return `<button class="opt-btn ${cssClass}${isActive ? ' active' : ''}" data-id="${id}" data-key="${key}" data-val="${val}">${label}</button>`;
+function getTotal() {
+  return cart.reduce((sum, c) => sum + getItemPrice(c, c.options) * c.qty, 0);
 }
 
 function renderCartSheet() {
@@ -203,7 +310,7 @@ function renderCartSheet() {
     return;
   }
 
-  cartItems.innerHTML = cart.map(item => {
+  cartItems.innerHTML = cart.map((item, idx) => {
     const o = item.options;
     const price = getItemPrice(item, o);
     return `
@@ -215,35 +322,35 @@ function renderCartSheet() {
           <div class="item-price">${(price * item.qty).toLocaleString()}원</div>
         </div>
         <div class="item-qty">
-          <button class="qty-btn" data-id="${item.id}" data-delta="-1">&#8722;</button>
+          <button class="qty-btn" data-idx="${idx}" data-delta="-1">&#8722;</button>
           <span class="qty-num">${item.qty}</span>
-          <button class="qty-btn" data-id="${item.id}" data-delta="1">+</button>
+          <button class="qty-btn" data-idx="${idx}" data-delta="1">+</button>
         </div>
       </div>
       <div class="item-options">
         <div class="option-row">
-          ${optBtn(item.id, 'HOT',     'hot',    'temp',   'HOT',    o.temp === 'HOT')}
-          ${optBtn(item.id, 'ICED',    'iced',   'temp',   'ICED',   o.temp === 'ICED')}
-          ${optBtn(item.id, 'Size Up (+1.0)', 'sizeup', 'sizeUp', 'toggle', o.sizeUp)}
+          <button class="opt-btn hot ${o.temp === 'HOT' ? 'active' : ''}" data-idx="${idx}" data-key="temp" data-val="HOT">HOT</button>
+          <button class="opt-btn iced ${o.temp === 'ICED' ? 'active' : ''}" data-idx="${idx}" data-key="temp" data-val="ICED">ICED</button>
+          <button class="opt-btn sizeup ${o.sizeUp ? 'active' : ''}" data-idx="${idx}" data-key="sizeUp">Size Up</button>
         </div>
         <div class="option-row">
-          ${item.hasCoffee ? optBtn(item.id, '샷 추가 (+0.5)', 'addshot', 'addShot', 'toggle', o.addShot) : ''}
-          ${item.hasMilk ? optBtn(item.id, '두유 변경 (+0.5)', 'soymilk', 'soyMilk', 'toggle', o.soyMilk) : ''}
+          ${item.hasCoffee ? `<button class="opt-btn addshot ${o.addShot ? 'active' : ''}" data-idx="${idx}" data-key="addShot">샷 추가</button>` : ''}
+          ${item.hasMilk ? `<button class="opt-btn soymilk ${o.soyMilk ? 'active' : ''}" data-idx="${idx}" data-key="soyMilk">두유 변경</button>` : ''}
         </div>
         <div class="option-row">
-          ${optBtn(item.id, '연하게', '', 'strength', 'light',  o.strength === 'light')}
-          ${optBtn(item.id, '보통',   '', 'strength', 'normal', o.strength === 'normal')}
-          ${optBtn(item.id, '진하게', '', 'strength', 'strong', o.strength === 'strong')}
+          <button class="opt-btn ${o.strength === 'light' ? 'active' : ''}" data-idx="${idx}" data-key="strength" data-val="light">연하게</button>
+          <button class="opt-btn ${o.strength === 'normal' ? 'active' : ''}" data-idx="${idx}" data-key="strength" data-val="normal">보통</button>
+          <button class="opt-btn ${o.strength === 'strong' ? 'active' : ''}" data-idx="${idx}" data-key="strength" data-val="strong">진하게</button>
         </div>
         ${item.hasCoffee ? `
         <div class="option-row decaf-row">
-          <span class="option-label">디카페인 (+1.0)</span>
+          <span class="option-label">디카페인</span>
           <label class="radio-label">
-            <input type="radio" name="decaf-${item.id}" value="false" ${!o.decaf ? 'checked' : ''} data-id="${item.id}" data-key="decaf" data-val="false">
+            <input type="radio" name="decaf-${idx}" value="false" ${!o.decaf ? 'checked' : ''} data-idx="${idx}" data-val="false">
             <span>일반</span>
           </label>
           <label class="radio-label">
-            <input type="radio" name="decaf-${item.id}" value="true" ${o.decaf ? 'checked' : ''} data-id="${item.id}" data-key="decaf" data-val="true">
+            <input type="radio" name="decaf-${idx}" value="true" ${o.decaf ? 'checked' : ''} data-idx="${idx}" data-val="true">
             <span>디카페인</span>
           </label>
         </div>` : ''}
@@ -251,38 +358,48 @@ function renderCartSheet() {
     </div>`;
   }).join('');
 
-  // Qty buttons
-  cartItems.querySelectorAll('.qty-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      updateQty(parseInt(btn.dataset.id), parseInt(btn.dataset.delta));
-    });
-  });
-
-  // Option buttons
-  cartItems.querySelectorAll('.opt-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      updateOption(parseInt(btn.dataset.id), btn.dataset.key, btn.dataset.val);
-    });
-  });
-
-  // Decaf radio buttons
-  cartItems.querySelectorAll('input[type="radio"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      updateOption(parseInt(radio.dataset.id), 'decaf', radio.dataset.val === 'true');
-    });
-  });
-
+  attachCartListeners();
   totalPrice.textContent = getTotal().toLocaleString() + '원';
   cartFooter.style.display = 'block';
-  updateOrderBtn();
 }
 
-function updateOrderBtn() {
-  orderBtn.disabled = false;
-  orderBtn.textContent = '주문하기';
+function attachCartListeners() {
+  cartItems.querySelectorAll('.qty-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.idx);
+      const delta = parseInt(btn.dataset.delta);
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) cart.splice(idx, 1);
+      updateCartUI();
+      renderCartSheet();
+    });
+  });
+
+  cartItems.querySelectorAll('.opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.idx);
+      const key = btn.dataset.key;
+      const val = btn.dataset.val;
+      if (key === 'temp' || key === 'strength') {
+        cart[idx].options[key] = val;
+      } else {
+        cart[idx].options[key] = !cart[idx].options[key];
+      }
+      renderCartSheet();
+      updateCartUI();
+    });
+  });
+
+  cartItems.querySelectorAll('input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const idx = parseInt(radio.dataset.idx);
+      cart[idx].options.decaf = radio.dataset.val === 'true';
+      renderCartSheet();
+      updateCartUI();
+    });
+  });
 }
 
-// Open / Close Cart Sheet
 function openCart() {
   const name = ordererSelect.value;
   sheetOrderer.textContent = name ? `${name}님의 주문` : '';
@@ -303,7 +420,6 @@ fabCart.addEventListener('click', openCart);
 sheetClose.addEventListener('click', closeCart);
 overlay.addEventListener('click', closeCart);
 
-// Category Filter
 categoryNav.querySelectorAll('.cat-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     categoryNav.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
@@ -313,16 +429,15 @@ categoryNav.querySelectorAll('.cat-btn').forEach(btn => {
   });
 });
 
-// Order
 function optionSummary(options, hasCoffee, hasMilk) {
   const parts = [];
   parts.push(options.temp);
   if (options.sizeUp) parts.push('Size Up (+1.0)');
   if (hasCoffee && options.addShot) parts.push('샷 추가 (+0.5)');
-  if (hasMilk && options.soyMilk) parts.push('두유 변경 (+0.5)');
   const strengthMap = { light: '연하게', normal: '보통', strong: '진하게' };
   parts.push(strengthMap[options.strength]);
-  if (hasCoffee && options.decaf) parts.push('디카페인 (+1.0)');
+  if (hasCoffee && options.decaf) parts.push('디카페인 (+0.5)');
+  if (hasMilk && options.soyMilk) parts.push('두유 변경 (+0.5)');
   return parts.join(' · ');
 }
 
@@ -361,9 +476,7 @@ orderBtn.addEventListener('click', async () => {
 
   orderBtn.disabled = true;
   orderBtn.textContent = '주문 중...';
-
   await sendToTelegram(orderer, cart, total);
-
   orderBtn.disabled = false;
   orderBtn.textContent = '주문하기';
 
@@ -378,13 +491,10 @@ modalCloseBtn.addEventListener('click', () => {
   updateCartUI();
 });
 
-// Update orderer name in open sheet when select changes
 ordererSelect.addEventListener('change', () => {
   if (cartSheet.classList.contains('open')) {
     sheetOrderer.textContent = ordererSelect.value ? `${ordererSelect.value}님의 주문` : '';
-    updateOrderBtn();
   }
 });
 
-// Init
 renderMenu();

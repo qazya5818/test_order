@@ -110,6 +110,70 @@
     </div>
   </div>
 
+  <!-- Option Selection Modal -->
+  <div class="modal-overlay" id="optionModalOverlay">
+    <div class="modal option-modal" id="optionModal">
+      <div class="option-modal-header">
+        <div class="option-modal-emoji" id="optEmoji">☕</div>
+        <div class="option-modal-info">
+          <h3 id="optName">메뉴 이름</h3>
+          <p id="optDesc">메뉴 설명</p>
+        </div>
+        <button class="sheet-close" id="optClose">&#10005;</button>
+      </div>
+      
+      <div class="option-modal-body">
+        <!-- Quantity -->
+        <div class="opt-group">
+          <span class="opt-label">수량</span>
+          <div class="item-qty">
+            <button class="qty-btn" id="optMinus">&#8722;</button>
+            <span class="qty-num" id="optQty">1</span>
+            <button class="qty-btn" id="optPlus">+</button>
+          </div>
+        </div>
+
+        <!-- Temp -->
+        <div class="opt-group">
+          <span class="opt-label">온도</span>
+          <div class="opt-row" id="optTempRow">
+            <button class="opt-btn hot" data-val="HOT">HOT</button>
+            <button class="opt-btn iced active" data-val="ICED">ICED</button>
+          </div>
+        </div>
+
+        <!-- Options -->
+        <div class="opt-group">
+          <span class="opt-label">옵션</span>
+          <div class="opt-row">
+            <button class="opt-btn" id="optSizeUp">사이즈 업</button>
+            <button class="opt-btn" id="optAddShot">샷 추가(+500원)</button>
+            <button class="opt-btn" id="optSoyMilk">두유 변경(+500원)</button>
+            <button class="opt-btn" id="optDecaf">디카페인(+500원)</button>
+          </div>
+        </div>
+
+        <!-- Strength -->
+        <div class="opt-group">
+          <span class="opt-label">농도</span>
+          <div class="opt-row" id="optStrengthRow">
+            <button class="opt-btn" data-val="light">연하게</button>
+            <button class="opt-btn active" data-val="normal">기본</button>
+            <button class="opt-btn" data-val="strong">진하게</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="option-modal-footer">
+        <div class="opt-total">
+          <span>합계</span>
+          <span id="optTotalPrice">0원</span>
+        </div>
+        <button class="order-btn" id="optConfirmBtn">장바구니 담기</button>
+      </div>
+    </div>
+  </div>
+
   <script src="/config.js"></script>
   <script defer src="/main.js"></script>
 </body>

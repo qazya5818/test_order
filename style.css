@@ -699,6 +699,93 @@ body {
   cursor: pointer;
 }
 
+.modal.option-modal {
+  max-width: 400px;
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+}
+
+.option-modal-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.option-modal-emoji {
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-right: 14px;
+}
+
+.option-modal-info h3 {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+.option-modal-info p {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.option-modal-header .sheet-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+.option-modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.opt-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.opt-group .opt-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--brown);
+}
+
+.option-modal-footer {
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+
+.opt-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.opt-total span:first-child {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.opt-total span:last-child {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--brown);
+}
+
 /* Animation */
 @keyframes pop {
   0% { transform: scale(1); }
