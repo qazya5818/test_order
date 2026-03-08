@@ -1,7 +1,7 @@
 // Menu Data
 const menuItems = [
   // 커피
-  { id: 1,  name: '아메리카노',      desc: '진한 에스프레소와 물의 조화',         priceHot: 1800, priceIce: 1800, emoji: '\u2615',       category: 'coffee', hasCoffee: true },
+  { id: 1,  name: '아메리카노',      desc: '진한 에스프레소와 물의 조화',         priceHot: 1800, priceIce: 1800, emoji: '\u2615', image: 'images/menu_americano.png', category: 'coffee', hasCoffee: true },
   { id: 3,  name: '카페라떼',        desc: '부드러운 우유와 에스프레소',          priceHot: 3000, priceIce: 3200, emoji: '\ud83e\udd5b', category: 'coffee', hasCoffee: true, hasMilk: true },
   { id: 2,  name: '카페모카',        desc: '초콜릿과 에스프레소의 달콤한 만남',   priceHot: 3500, priceIce: 3700, emoji: '\ud83c\udf6b', category: 'coffee', hasCoffee: true, hasMilk: true },
   { id: 4,  name: '바닐라라떼',      desc: '달콤한 바닐라 시럽 라떼',             priceHot: 3500, priceIce: 3700, emoji: '\ud83c\udf6e', category: 'coffee', hasCoffee: true, hasMilk: true },
@@ -135,7 +135,9 @@ function renderMenu() {
 
   menuGrid.innerHTML = filtered.map(item => `
     <div class="menu-card">
-      <div class="card-emoji">${item.emoji}</div>
+      <div class="card-media">
+        ${item.image ? `<img src="${item.image}" class="card-img" alt="${item.name}">` : `<div class="card-emoji">${item.emoji}</div>`}
+      </div>
       <div class="card-body">
         <div class="card-name">${item.name}</div>
         <div class="card-desc">${item.desc}</div>
@@ -175,7 +177,12 @@ function openOptionModal(id) {
     strength: 'normal'
   };
 
-  optEmoji.textContent = item.emoji;
+  if (item.image) {
+    optEmoji.innerHTML = `<img src="${item.image}" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">`;
+  } else {
+    optEmoji.innerHTML = item.emoji;
+  }
+  
   optName.textContent = item.name;
   optDesc.textContent = item.desc;
   
