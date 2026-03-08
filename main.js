@@ -10,17 +10,17 @@ const menuItems = [
   { id: 7,  name: '연유라떼',        desc: '달콤한 연유와 에스프레소의 조화',     priceHot: 3800, priceIce: 4000, emoji: '\ud83e\udd5b', image: 'images/menu_milklatte.png', category: 'coffee', hasCoffee: true, hasMilk: true },
   { id: 8,  name: '소이라떼',        desc: '고소한 두유 라떼',                   priceHot: 3500, priceIce: 3700, emoji: '\ud83c\udf31', image: 'images/menu_soilatte.png', category: 'coffee', hasCoffee: true, hasMilk: true },
   // 라떼&프라푸치노
-  { id: 9,  name: '밀크티',            desc: '진한 홍차와 부드러운 우유',           priceHot: 3800, priceIce: 4000, emoji: '\ud83c\udf75', category: 'latte', hasMilk: true },
-  { id: 10, name: '시나몬라떼',        desc: '따뜻한 시나몬 향의 라떼',             priceHot: 3800, priceIce: 4000, emoji: '\ud83e\uded6', category: 'latte', hasMilk: true },
-  { id: 11, name: '딸기라떼',          desc: '[시즌] 상큼한 딸기 라떼',           priceHot: 5500, priceIce: 5500, emoji: '\ud83c\udf53', category: 'latte', hasMilk: true },
-  { id: 12, name: '고구마라떼',        desc: '달콤한 고구마 라떼',                 priceHot: 3800, priceIce: 4000, emoji: '\ud83c\udf60', category: 'latte', hasMilk: true },
-  { id: 13, name: '오곡라떼',          desc: '고소한 오곡 블렌딩 라떼',             priceHot: 3800, priceIce: 4000, emoji: '\ud83c\udf3e', category: 'latte', hasMilk: true },
+  { id: 9,  name: '밀크티',            desc: '진한 홍차와 부드러운 우유',           priceHot: 3800, priceIce: 4000, emoji: '\ud83c\udf75', image: 'images/menu_milktea.png', category: 'latte', hasMilk: true },
+  { id: 10, name: '시나몬라떼',        desc: '따뜻한 시나몬 향의 라떼',             priceHot: 3800, priceIce: 4000, emoji: '\ud83e\uded6', image: 'images/menu_cinnamonlatte.png', category: 'latte', hasMilk: true },
+  { id: 11, name: '딸기라떼',          desc: '[시즌] 상큼한 딸기 라떼',           priceHot: 5500, priceIce: 5500, emoji: '\ud83c\udf53', image: 'images/menu_strewberrylatte.png', category: 'latte', hasMilk: true },
+  { id: 12, name: '고구마라떼',        desc: '달콤한 고구마 라떼',                 priceHot: 3800, priceIce: 4000, emoji: '\ud83c\udf60', image: 'images/menu_sweetpotatolatte.png', category: 'latte', hasMilk: true },
+  { id: 13, name: '오곡라떼',          desc: '고소한 오곡 블렌딩 라떼',             priceHot: 3800, priceIce: 4000, emoji: '\ud83c\udf3e', image: 'images/menu_fivegrainlatte.png', category: 'latte', hasMilk: true },
   { id: 14, name: '초코라떼',          desc: '진한 초콜릿 라떼',                   priceHot: 3800, priceIce: 4000, emoji: '\ud83c\udf6b', category: 'latte', hasMilk: true },
   { id: 15, name: '토피넛라떼',        desc: '달콤 고소한 토피넛 라떼',             priceHot: 4300, priceIce: 4500, emoji: '\ud83e\udd5c', category: 'latte', hasMilk: true },
-  { id: 16, name: '미숫가루',          desc: '[시즌] 구수하고 든든한 미숫가루',     priceHot: 4800, priceIce: 4800, emoji: '\ud83c\udf5a', category: 'latte', hasMilk: true },
-  { id: 17, name: '자바칩 프라푸치노',    desc: '초코칩이 가득한 자바칩 프라푸치노',   priceHot: 4700, priceIce: 4700, emoji: '\ud83c\udf66', category: 'latte' },
-  { id: 18, name: '초코 프라푸치노',    desc: '진한 초콜릿 블렌디드',               priceHot: 4700, priceIce: 4700, emoji: '\ud83c\udf6b', category: 'latte' },
-  { id: 19, name: '바닐라 프라푸치노',  desc: '달콤한 바닐라 블렌디드',             priceHot: 4700, priceIce: 4700, emoji: '\ud83c\udf6e', category: 'latte' },
+  { id: 16, name: '미숫가루',          desc: '[시즌] 구수하고 든든한 미숫가루',     priceHot: 4800, priceIce: 4800, emoji: '\ud83c\udf5a', image: 'images/menu_misutgaru.png', category: 'latte', hasMilk: true },
+  { id: 17, name: '자바칩 프라푸치노',    desc: '초코칩이 가득한 자바칩 프라푸치노',   priceHot: 4700, priceIce: 4700, emoji: '\ud83c\udf66', image: 'images/menu_javachipfrappuccino.png', category: 'latte' },
+  { id: 18, name: '초코 프라푸치노',    desc: '진한 초콜릿 블렌디드',               priceHot: 4700, priceIce: 4700, emoji: '\ud83c\udf6b', image: 'images/menu_chocofrappuccino.png', category: 'latte' },
+  { id: 19, name: '바닐라 프라푸치노',  desc: '달콤한 바닐라 블렌디드',             priceHot: 4700, priceIce: 4700, emoji: '\ud83c\udf6e', image: 'images/menu_vanillafrappuccino.png', category: 'latte' },
   // 요거트&스무디
   { id: 20, name: '플레인 요거트',     desc: '새콤하고 담백한 플레인 요거트',       priceHot: 5000, priceIce: 5000, emoji: '\ud83e\udd63', category: 'yogurt' },
   { id: 21, name: '딸기 요거트',       desc: '상큼한 딸기가 가득한 요거트',         priceHot: 5500, priceIce: 5500, emoji: '\ud83c\udf53', category: 'yogurt' },
@@ -106,6 +106,7 @@ const optDecaf           = document.getElementById('optDecaf');
 const optStrengthRow     = document.getElementById('optStrengthRow');
 const optTotalPrice      = document.getElementById('optTotalPrice');
 const optConfirmBtn      = document.getElementById('optConfirmBtn');
+const optDirectBtn       = document.getElementById('optDirectBtn');
 
 // Modal State
 let activeItem = null;
@@ -166,15 +167,7 @@ function animateBtn(btn) {
 function openOptionModal(id) {
   const item = menuItems.find(m => m.id === id);
   activeItem = item;
-  modalState = {
-    qty: 1,
-    temp: 'ICED',
-    sizeUp: false,
-    addShot: false,
-    soyMilk: false,
-    decaf: false,
-    strength: 'normal'
-  };
+  resetModalState(); // Ensure clean state every time it opens
 
   if (item.image) {
     optEmoji.innerHTML = `<img src="${item.image}" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">`;
@@ -218,6 +211,19 @@ function updateOptionModalUI() {
 
   const price = getItemPrice(activeItem, modalState);
   optTotalPrice.textContent = (price * modalState.qty).toLocaleString() + '원';
+}
+
+function resetModalState() {
+  modalState = {
+    qty: 1,
+    temp: 'ICED',
+    sizeUp: false,
+    addShot: false,
+    soyMilk: false,
+    decaf: false,
+    strength: 'normal'
+  };
+  updateOptionModalUI();
 }
 
 optMinus.addEventListener('click', () => {
@@ -266,6 +272,7 @@ optDecaf.addEventListener('click', () => {
   updateOptionModalUI();
 });
 
+// Cart and Order Execution
 optConfirmBtn.addEventListener('click', () => {
   const cartItem = {
     ...activeItem,
@@ -285,20 +292,42 @@ optConfirmBtn.addEventListener('click', () => {
   }
 
   updateCartUI();
-  
-  // Reset modal state and UI before closing
-  modalState = {
-    qty: 1,
-    temp: 'ICED',
-    sizeUp: false,
-    addShot: false,
-    soyMilk: false,
-    decaf: false,
-    strength: 'normal'
-  };
-  updateOptionModalUI();
-  
+  resetModalState();
   closeOptionModal();
+});
+
+optDirectBtn.addEventListener('click', async () => {
+  if (!ordererSelect.value) {
+    alert('주문자를 선택해주세요.');
+    return;
+  }
+  
+  const orderer = ordererSelect.value;
+  const directItem = {
+    ...activeItem,
+    qty: modalState.qty,
+    options: { ...modalState },
+    hasCoffee: activeItem.hasCoffee,
+    hasMilk: activeItem.hasMilk
+  };
+  
+  const totalVal = getItemPrice(directItem, directItem.options) * directItem.qty;
+  const totalStr = totalVal.toLocaleString();
+  const summary = `• ${directItem.name} x${directItem.qty}  [${optionSummary(directItem.options, directItem.hasCoffee, directItem.hasMilk)}]`;
+
+  optDirectBtn.disabled = true;
+  optDirectBtn.textContent = '주문 중...';
+
+  await sendToTelegram(orderer, [directItem], totalStr);
+
+  optDirectBtn.disabled = false;
+  optDirectBtn.textContent = '바로 주문';
+
+  modalMsg.textContent = `주문자: ${orderer}\n\n${summary}\n\n총 ${totalStr}원 결제가 완료되었습니다.\n잠시 후 준비됩니다!`;
+  
+  resetModalState();
+  closeOptionModal();
+  setTimeout(() => { modalOverlay.classList.add('active'); }, 300);
 });
 
 optClose.addEventListener('click', closeOptionModal);
@@ -306,7 +335,7 @@ optionModalOverlay.addEventListener('click', (e) => {
   if (e.target === optionModalOverlay) closeOptionModal();
 });
 
-// Cart Logic
+// Cart UI Logic
 function updateCartUI() {
   const qty = cart.reduce((sum, c) => sum + c.qty, 0);
   cartBadge.textContent = qty;
@@ -454,7 +483,7 @@ function optionSummary(options, hasCoffee, hasMilk) {
   if (hasCoffee && options.addShot) parts.push('샷 추가 (+0.5)');
   const strengthMap = { light: '연하게', normal: '보통' };
   parts.push(strengthMap[options.strength]);
-  if (hasCoffee && options.decaf) parts.push('디카페인 (+0.5)');
+  if (hasCoffee && options.decaf) parts.push('디카페인 (+1.0)');
   if (hasMilk && options.soyMilk) parts.push('두유 변경 (+0.5)');
   return parts.join(' · ');
 }

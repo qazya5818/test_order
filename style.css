@@ -790,6 +790,37 @@ body {
   background: #fff;
 }
 
+.opt-footer-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.cart-add-btn, .direct-order-btn {
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.cart-add-btn {
+  background: var(--bg);
+  color: var(--brown);
+  border: 1.5px solid var(--border);
+}
+
+.cart-add-btn:active { background: var(--border); }
+
+.direct-order-btn {
+  background: var(--accent);
+  color: #fff;
+}
+
+.direct-order-btn:active { background: var(--brown); }
+
 .opt-total {
   display: flex;
   justify-content: space-between;
